@@ -1,0 +1,9 @@
+src/
+test/
+.gitignore
+node_modules/
+.eslintrc.js
+jest.config.js
+tsconfig.json
+.github/
+.vscode/
