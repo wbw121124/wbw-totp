@@ -10,7 +10,7 @@
  * @returns {Uint8Array} 解码后的字节数组
  * @throws {Error} 当输入包含非法字符时抛出错误
  */
-function base32Decode(base32Str: string) {
+function base32Decode(base32Str: string): Uint8Array {
 	// 标准 Base32 字符表 (RFC 4648)
 	const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 	// 清理输入: 移除空格、转为大写、移除可能的填充 '='
@@ -54,7 +54,7 @@ function base32Decode(base32Str: string) {
  * @param {number} bits - 左移的位数 (0-31)
  * @returns {number} 循环左移后的结果
  */
-function leftRotate(value: number, bits: number) {
+function leftRotate(value: number, bits: number): number {
 	return (value << bits) | (value >>> (32 - bits));
 }
 
@@ -117,7 +117,7 @@ function sha1Compress(block: any[], H: any[]) {
  * @param {Uint8Array} message - 要计算哈希的消息
  * @returns {Uint8Array} 20 字节的 SHA-1 哈希值 (大端字节序)
  */
-function sha1(message: string | any[] | ArrayLike<number>) {
+function sha1(message: string | any[] | ArrayLike<number>): Uint8Array {
 	// 将字符串转换为 Uint8Array
 	if (typeof message === 'string') {
 		message = new TextEncoder().encode(message);
@@ -214,7 +214,7 @@ function sha1(message: string | any[] | ArrayLike<number>) {
  * const mac = hmacSha1(key, message);
  * console.log(mac); // Uint8Array(20)
  */
-function hmacSha1(keyBytes: string | any[] | ArrayLike<number>, messageBytes: string | any[] | ArrayLike<number>) {
+function hmacSha1(keyBytes: string | any[] | ArrayLike<number>, messageBytes: string | any[] | ArrayLike<number>): Uint8Array {
 	// 将字符串转换为 Uint8Array
 	if (typeof keyBytes === 'string') {
 		keyBytes = new TextEncoder().encode(keyBytes);
@@ -282,7 +282,7 @@ function hmacSha1(keyBytes: string | any[] | ArrayLike<number>, messageBytes: st
  * @param {Uint8Array} hmacResult - HMAC-SHA1 结果 (20字节)
  * @returns {string} 6 位数字验证码 (不足 6 位时补前导零)
  */
-function dynamicTruncate(hmacResult: Uint8Array<ArrayBuffer> | number[]) {
+function dynamicTruncate(hmacResult: Uint8Array | number[]): string {
 	// 获取偏移量: 取最后一个字节的低4位
 	const offset = hmacResult[19] & 0x0F;
 	// 从 offset 开始取4个字节构成一个31位整数 (忽略最高位)
@@ -300,7 +300,7 @@ function dynamicTruncate(hmacResult: Uint8Array<ArrayBuffer> | number[]) {
  * 获取当前时间步长计数器 (基于Unix时间戳, 步长30秒)
  * @returns {number} 时间步长计数器
  */
-function getCurrentCounter() {
+function getCurrentCounter(): number {
 	// 当前时间 (秒)
 	const nowSec = Math.floor(Date.now() / 1000);
 	// 时间步长30秒
@@ -314,7 +314,7 @@ function getCurrentCounter() {
  * @param {number} counter - 整数计数器
  * @returns {Uint8Array} 8 字节大端序字节数组
  */
-function counterToBytes(counter: number) {
+function counterToBytes(counter: number): Uint8Array {
 	const bytes = new Uint8Array(8);
 	for (let i = 7; i >= 0; i--) {
 		bytes[i] = counter & 0xFF;
@@ -329,7 +329,7 @@ function counterToBytes(counter: number) {
  * @returns {string} 返回 6 位验证码字符串
  * @throws {Error} 当解码失败或 HMAC 计算失败时抛出错误
  */
-function generateTOTP(base32Secret: string) {
+function generateTOTP(base32Secret: string): string {
 	if (!base32Secret || base32Secret.trim() === "") {
 		throw new Error("Base32 密钥不能为空");
 	}
