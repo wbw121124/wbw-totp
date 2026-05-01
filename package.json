@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "fabu": "pnpm run build && pnpm run check && pnpm run gendocs:clean && pnpm publish --access public --loglevel verbose",
+    "fabu": "pnpm publish --access public --loglevel verbose",
     "build": "pnpm tsup",
     "check": "pnpm pack --dry-run",
     "push": "git add . && git commit -m \"update\" && git push",
-    "pp": "pnpm run push && pnpm run fabu",
+    "pp": "pnpm run build && pnpm run check && pnpm run gendocs:clean && pnpm run push && pnpm run fabu",
     "gendocs": "pnpm typedoc",
     "gendocs:clean": "rimraf docs && pnpm typedoc",
     "gendocs:serve": "pnpm gendocs:clean && pnpm run serve:docs",
