@@ -1,0 +1,25 @@
+{
+	"entryPoints": [
+		"./src/index.ts"
+	],
+	"out": "./docs",
+	"exclude": [
+		"**/node_modules/**"
+	],
+	"excludePrivate": true,
+	"excludeProtected": true,
+	"skipErrorChecking": false,
+	"includeVersion": true,
+	"readme": "./README.md",
+	"name": "wbw-totp",
+	"plugin": [],
+	"sort": [
+		"source-order"
+	],
+	"kindSortOrder": [
+		"Function",
+		"Class",
+		"Interface",
+		"TypeAlias"
+	]
+}
